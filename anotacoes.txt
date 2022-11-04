@@ -1,0 +1,17 @@
+
+1) O QUE É Git ? 
+    1.5) Git Bash
+        -> No windows é necessário realizar a instalação;
+        -> No macOs, o git já vem instalado. Para usar o bash, basta abrir o terminal e digitar
+           o comando bash;
+        -> Inicializar um repositório em uma pasta: git init
+        -> git status : esse comando mostra informações sobre o repositório
+        -> Atenção! Atualmente não utilizamos mais o termo master como repositorio principal, e sim main,
+           sendo esse é o novo padrão do GitHub desde o fim de 2020. Essa nomenclatura é mais inclusiva e facilita
+           o entendimento entre pessoas desenvolvedoras.
+        -> Antes de qualquer interação com o git, você precisa informar quem é você para que ele armazene corretamente os
+           dados do autor de cada uma das alterações no código:
+            git config --local user.name "Seu nome aqui"
+            git config --local user.email "seu@email.aqui"
+
+    1.6) Repositórios
