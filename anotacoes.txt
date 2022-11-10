@@ -14,4 +14,125 @@
             git config --local user.name "Seu nome aqui"
             git config --local user.email "seu@email.aqui"
 
-    1.6) Repositórios
+2) INICIANDO OS TRABALHOS
+    2.1) Salvando alterações
+        -> use o esse comando para salvar alterações: git add .
+        -> git rm --cached <file> para git deixar de rastrear o arquivo
+        -> git commit -m "mensagem descritiva"
+    2.2) Git status
+        -> Ao executar o comando git status, recebemos algumas informações que talvez não estejam tão claras, principalmente 
+        quando nos deparamos com termos como HEAD, working tree, index, etc.
+        Apenas para esclarecer um pouco, visto que entenderemos melhor o funcionamento do Git durante o treinamento, seguem  
+        algumas definições interessantes:
+        - HEAD: Estado atual do nosso código, ou seja, onde o Git os colocou
+        - Working tree: Local onde os arquivos realmente estão sendo armazenados e editados
+        - index: Local onde o Git armazena o que será commitado, ou seja, o local
+        entre a working tree e o repositório Git em si.
+
+    2.3) Vendo histórico
+        -> git log
+        -> git log --help
+        -> git log --oneline
+        -> git log --pretty="format:%H"
+    
+    2.6) Ignorando arquivos
+        -> criar arquivo .gitignore no diretorio principal do projeto
+        -> Cada linha desse arquivo representa um arquivo ou pasta que não serão monitorados pelo git
+        -> No entanto, precisamos fazer com que o git monitore o arquivo .gitignore primeiro
+            - para isso usamos o comando: git add .gitignore
+            - git commit -m "Adicionando git ignore"
+        -> Nunca commite um código que não está funcionando
+        -> Ao adicionar um funcionalidade ou corrigir um bug, é recomendavel realizar um commit
+
+3) COMPARTILHANDO O TRABALHO
+
+    3.1) Repositórios remotos
+        -> Criar pasta "servidor" na mesma pasta em que cursogit está armazenado;
+        -> na pasta servidor:
+            - git init --bare (flag indica que nessa pasta serão salvas apenas as alteracoes dos arquivos)
+        -> retornando a pasta cursogithub:
+            - git remote : lista os repositórios remotos conhecidos por aquele repositório local
+            - para adicionar um repositorio local com o nome "local" usamos:
+                git remote add local /Users/eusebiosouza/Documents/Alura/servidor
+            - git remote -v : checa endereco do repositorio remotos
+        -> git clone 
+            - para clonar um repositorio remoto no local: git clone /Users/eusebiosouza/Documents/Alura/servidor nomeDaPastaLocal
+        -> git push local master (git push "seuRepositório" "Branch")
+        -> git pull : puxa os dados de um repositorio para o pc 
+    
+    3.6) GitHub
+        -> Após criar um novo repositório na pagina do git GitHub
+        -> Selecionar a opção HTTPS
+        -> Criar um novo repositorio a partir da linha de comando:
+            echo "# cursoGit" >> README.md
+            git init
+            git add README.md
+            git commit -m "first commit"
+            git branch -M main
+            git remote add origin https://github.com/eusebiops14/cursoGit.git
+            git push -u origin main
+        -> or push an existing repository from the command line:
+            git remote add origin https://github.com/eusebiops14/cursoGit.git
+            git branch -M main
+            git push -u origin main
+        -> Ao executar o push em um repositorio, por padrão, o gitHub nomeia esse repositório como origin 
+
+4) Trabalhando em equipe
+    4.1) Branches ('Braços')
+        -> git branch : lista as branchs do repositorio
+        -> git branch <nomeNovaBranch> : cria uma nova branch no repositório
+        -> git checkout titulo : muda para a branch titulo
+        -> git checkout -b lista : cria uma nova branch chamada lista e já entra acessa a nova branch criada
+        -> Branches ("ramos") são utilizados para desenvolver funcionalidades isoladas umas das outras.
+            A branch master é a branch "padrão" quando você cria um repositório.
+            É interessante separar o desenvolvimento de funcionalidades em branches diferentes, para 
+            que as mudanças no código para uma não influencie no funcionamento de outra.
+
+    4.3) Unindo o Trabalho 
+        -> git merge <nomeDeOutraBranche> : faz o merge entre a branche atual e outra branche 'nomeDeOutraBranche'  
+        -> Editor Vin - para sair e salvar digite :x + enter 
+        -> eXEMPLO:
+            - git checkout master 
+            - git merge titulo
+            - Dois comandos fazem  o merge da branch titulo para a branch master
+        -> git log --graph : mostra as linhas de desenvolvimento 
+        -> git rebase
+    4.7) Resolvendo conflitos
+        -> ferramenta vs code 
+5) Manipulando as Versões
+    5.1) Desfazendo alteraçoes
+        -> git checkout -- <nomeDoArquivo> : desfaz alteracoes do ultimo commit no arquivo espeficificado
+        ->  1 - git checkout
+            2 - git reset
+            3 - git revert
+           Alternativa correta! Com o git checkout nós desfazemos uma alteração que ainda não foi
+           adicionada ao index ou stage, ou seja, antes do git add. Depois de adicionar com git add,
+           para desfazer uma alteração, precisamos tirá-la deste estado, com git reset. Agora, se já
+           realizamos o commit, o comando git revert pode nos salvar.
+         
+    5.3) Guardando para depois 
+        -> git stash : salva as modificações em local temporario sem realizar o commit
+        -> git stash list - mostrar arquivos salvos temporariamente
+        -> git stash pop :
+
+    5.5) Viajando no tempo 
+        -> git checkout <hashCommit>
+
+6) Gerando Entregas
+    6.1) Vendo alterações
+        -> git diff : mostra o que foi modificado mas ainda nao foi adicionado (add)
+    
+    6.3) Tags e releases 
+        -> tag : marca um ponto fixo na aplicacào -- esse ponto não poderá ser mais alterado
+        -> git tag -a <nomeDaVersão> "msg da tag"(ex: v0.1.0)
+        -> git push origin <nomeDaVersão> : envia a tag para o repositorio
+        -> release fica disponivel na guia do projeto no git GitHub
+
+        Que é possível visualizar quais alterações foram realizadas em cada arquivo, com o comando git diff;
+Que, digitando apenas git diff, vemos as alterações em nossos arquivos que não foram adicionadas para commit (com git add);
+Que é possível comparar as alterações entre duas branches com git diff <branch1>..<branch2>
+Que é possível comparar as alterações feitas entre um commit e outro, através do comando git diff <commit1>..<commit2>;
+Que o Git nos possibilita salvar marcos da nossa aplicação, como por exemplo, lançamento de versões, através do git tag;
+Que o comando git tag -a é utilizado para gerar uma nova tag;
+As Releases do GitHub, que são geradas para cada tag do Git criada em nosso repositório.
+
